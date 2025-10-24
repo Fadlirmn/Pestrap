@@ -9,8 +9,8 @@
 // === WiFi & Firebase ===
 #define WIFI_SSID "KEMENIOT"
 #define WIFI_PASSWORD "zakiyaBusik2"
-#define API_KEY "AIzaSyDbtL7jHyQYRD4NiWSJELp8doinnL5U1vM"
-#define DATABASE_URL "https://pestrap-demo-default-rtdb.asia-southeast1.firebasedatabase.app/"
+#define API_KEY "AIzaSyDbtLxxxxxxxxxxxxxxxxxxxxxxxxx"
+#define DATABASE_URL "https://xxxxxxxxxxxxxxxx-rtdb.asia-southeast1.firebasedatabase.app/"
 
 FirebaseData fbdo;
 FirebaseAuth auth;
