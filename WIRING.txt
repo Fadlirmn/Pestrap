@@ -1,0 +1,13 @@
+Komponen	ESP32 Pin	Keterangan
+Relay IN	GPIO25	Aktif HIGH
+IR Sensor OUT	GPIO32	Output digital IR
+RTC SDA	GPIO21	I2C Data
+RTC SCL	GPIO22	I2C Clock
+LoRa NSS	GPIO5	Chip Select
+LoRa MOSI	GPIO23	SPI
+LoRa MISO	GPIO19	SPI
+LoRa SCK	GPIO18	SPI
+LoRa RST	GPIO14	Reset
+LoRa DIO0	GPIO26	Interrupt
+Power	3.3V	Semua kecuali relay
+Ground	GND	Semua ground harus nyatu
