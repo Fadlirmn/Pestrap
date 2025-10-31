@@ -1,34 +1,89 @@
-:root{
-  --bg:#2b2d33;
-  --card:#222428;
-  --muted:#9aa0a6;
-  --accent:#ff3b3b;
-  --panel-border:#393c40;
-  --text:#e6e6e6;
-  font-family:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
+const firebaseConfig = {
+  apiKey: "AIzaSyDbtL7jHyQYRD4NiWSJELp8doinnL5U1vM",
+  authDomain: "pestrap-demo.firebaseapp.com",
+  databaseURL: "https://pestrap-demo-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "pestrap-demo",
+  storageBucket: "pestrap-demo.firebasestorage.app",
+  messagingSenderId: "654436801113",
+  appId: "1:654436801113:web:c0e8026b48b85905952f48"
+};
+// Inisialisasi Firebase
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+// Path baru berdasarkan struktur di Firebase
+const PATHS = {
+  gauge: "/device1/irCount",
+  statusNeon: "/device1/relay",
+  totalKumbang: "/device1/irCount", // bisa juga beda kalau mau
+  time: "/device1/time",
+  lastUpdate: "/lastUpdate"
+};
+
+// Elemen UI
+const gaugeValueEl = document.getElementById("gaugeValue");
+const arcEl = document.getElementById("arc");
+const statusEl = document.getElementById("statusNeon");
+const totalEl = document.getElementById("totalKumbang");
+const lastUpdateEl = document.getElementById("lastUpdate");
+const connStateEl = document.getElementById("connState");
+
+// Fungsi buat gauge
+const ARC_LENGTH = 252;
+function setGauge(value) {
+  const v = Math.max(0, Math.min(100, Number(value || 0)));
+  const draw = Math.round(ARC_LENGTH * (v / 100));
+  arcEl.setAttribute("stroke-dasharray", `${draw} ${ARC_LENGTH}`);
+  gaugeValueEl.textContent = v;
 }
-*{box-sizing:border-box}
-html,body{height:100%;margin:0;background:var(--bg);color:var(--text)}
-.container{padding:18px;max-width:980px;margin:12px auto}
-.row{display:grid;grid-template-columns:1fr 350px 180px;gap:14px;margin-bottom:14px}
-.card{background:var(--card);border:1px solid var(--panel-border);border-radius:6px;padding:14px}
-.gauge-card{grid-column:1 / 4;height:240px;display:flex;align-items:center;justify-content:center}
-.gauge-wrap{width:100%;max-width:680px}
-.gauge{width:100%;height:120px}
-.arc-bg{opacity:.35}
-#gaugeValue{font-size:32px;fill:#dcdcdc;font-weight:600}
-.gauge-min,.gauge-max{fill:var(--muted);font-size:12px}
-.card-title{font-size:13px;color:var(--muted);margin-bottom:12px}
-.bigtext{font-size:56px;line-height:1;text-align:center;padding:6px 0}
-.status-card,.total-card{display:flex;flex-direction:column;justify-content:center;align-items:center}
-.image-btn{display:flex;flex-direction:column;justify-content:space-between;align-items:center;min-height:120px;cursor:pointer}
-.image-btn .img-area{border-top:1px solid rgba(255,255,255,0.02);padding-top:12px;opacity:.9}
-.small-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.small{padding:10px 12px;font-size:14px}
-#lastUpdate,#connState{color:var(--muted);font-weight:600}
-.muted{color:var(--muted);font-size:11px}
-@media(max-width:900px){
-  .container{padding:12px}
-  .row{grid-template-columns:1fr}
-  .gauge-card{height:220px}
+
+// Monitor koneksi
+firebase.database().ref(".info/connected").on("value", (snap) => {
+  const connected = snap.val();
+  connStateEl.textContent = connected ? "connected" : "disconnected";
+  connStateEl.style.color = connected ? "#a9ffb8" : "#ffb0b0";
+});
+
+// Ambil data irCount → tampilkan ke gauge dan total
+db.ref(PATHS.gauge).on("value", (snap) => {
+  const val = snap.val() || 0;
+  setGauge(val);
+  totalEl.textContent = val;
+  updateLast();
+});
+
+// Ambil status relay
+db.ref(PATHS.statusNeon).on("value", (snap) => {
+  const val = snap.val();
+  statusEl.textContent = val ? "ON" : "OFF";
+  updateLast();
+});
+
+// Ambil waktu terakhir
+db.ref(PATHS.time).on("value", (snap) => {
+  const val = snap.val();
+  if (val) lastUpdateEl.textContent = val;
+});
+
+// Update timestamp
+function updateLast() {
+  const ts = Date.now();
+  db.ref(PATHS.lastUpdate).set(ts).catch(() => {});
 }
+
+// Tombol image
+document.getElementById("imgBtn1").addEventListener("click", () => {
+  sendCommand("btn1");
+});
+document.getElementById("imgBtn2").addEventListener("click", () => {
+  sendCommand("btn2");
+});
+
+function sendCommand(name) {
+  db.ref("/commands").push({ cmd: name, ts: Date.now() }).catch((err) => {
+    console.error("Failed to send command", err);
+  });
+}
+
+// Inisialisasi
+setGauge(0);
