@@ -11,9 +11,12 @@
 </head>
 <body>
   <div class="container">
+
+    <!-- Gauge Section -->
     <div class="row">
       <div class="card gauge-card">
         <div class="gauge-wrap">
+          <h2>Jumlah Kumbang</h2>
           <svg viewBox="0 0 200 110" class="gauge">
             <defs>
               <linearGradient id="g1" x1="0" x2="1">
@@ -30,23 +33,36 @@
           </svg>
         </div>
       </div>
+    </div>
+
+    <!-- Status & Total -->
+    <div class="row">
       <div class="card status-card">
-        <div class="card-title">Status Neon <span class="muted">[V4]</span></div>
+        <div class="card-title">Status Neon <span class="muted"></span></div>
         <div class="bigtext" id="statusNeon">String</div>
       </div>
       <div class="card total-card">
-        <div class="card-title">Total Kumbang <span class="muted">[V2]</span></div>
+        <div class="card-title">Total Kumbang <span class="muted"></span></div>
         <div class="bigtext" id="totalKumbang">-</div>
       </div>
-      <div class="card image-btn" id="imgBtn1">
-        <div class="card-title">Image Button</div>
-        <div class="img-area"><i class="fa-regular fa-image fa-2x"></i></div>
+    </div>
+
+    <!-- Image Buttons -->
+    <div class="row image-row">
+      <div class="card image-btn" id="btnLeft">
+        <div class="img-area">
+          <i class="fa-solid fa-arrow-left fa-3x"></i>
+        </div>
       </div>
-      <div class="card image-btn" id="imgBtn2">
-        <div class="card-title">Image Button Copy</div>
-        <div class="img-area"><i class="fa-regular fa-image fa-2x"></i></div>
+      <div class="card image-btn" id="btnRight">
+        <div class="img-area">
+          <i class="fa-solid fa-arrow-right fa-3x"></i>
+        </div>
       </div>
     </div>
+
+
+    <!-- Bottom Info -->
     <div class="row small-row">
       <div class="card small">
         <div class="card-title">Last update</div>
@@ -58,6 +74,7 @@
       </div>
     </div>
   </div>
+
   <script src="script.js"></script>
 </body>
 </html>
