@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Pestrap Monitor</title>
+  <link rel="icon" href="favicon.ico" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f6f8;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      text-align: center;
+      color: #222;
+    }
+    h1 { font-size: 1.8rem; margin-bottom: 10px; }
+    p { margin: 8px 0 20px; color: #555; }
+    .qr {
+      margin: 20px;
+      border: 8px solid white;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .btn {
+      display: inline-block;
+      margin: 10px;
+      padding: 14px 28px;
+      border-radius: 10px;
+      font-size: 16px;
+      text-decoration: none;
+      color: white;
+      background: #0078ff;
+      transition: background 0.3s;
+    }
+    .btn:hover {
+      background: #005ad1;
+    }
+    .btn.secondary {
+      background: #00b97f;
+    }
+    .btn.secondary:hover {
+      background: #009866;
+    }
+  </style>
+</head>
+<body>
+  <h1>Pestrap Monitor</h1>
+  <p>Akses aplikasi di perangkat Anda</p>
+
+  <!-- Ganti link di bawah dengan link web kamu -->
+  <img class="qr" src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://pestrap-monitor.vercel.app" alt="QR ke web" />
+
+  <div>
+    <a class="btn" href="https://pestrap.vercel.app/">🌐 Buka Web App</a>
+    <a class="btn secondary" href="https://drive.google.com/file/d/1dfR1qbe1sF3Kidkp2OlJDytiloxW1Ljh/view?usp=drive_link">📱 Unduh APK</a>
+  </div>
+</body>
+</html>
