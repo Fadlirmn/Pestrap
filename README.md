@@ -39,6 +39,21 @@ LoRa RST	GPIO14	Reset
 LoRa DIO0	GPIO26	Interrupt pin
 Power	3.3V	Semua kecuali relay
 Ground	GND	Semua ground harus nyatu
+
+esp 8266
+D0 → LoRa DIO0
+D1 → I2C SCL
+D2 → I2C SDA
+D3 → Relay
+D4 → LoRa RST
+D5 → LoRa SCK
+D6 → LoRa MISO
+D7 → LoRa MOSI
+D8 → LoRa NSS
+v5 -> Vin
+v3 -> v3
+gnd-> gnd
+
 🧰 Library yang Digunakan
 WiFi.h
 Wire.h
